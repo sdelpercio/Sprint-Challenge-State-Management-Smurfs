@@ -6,7 +6,17 @@ import SmurfForm from './SmurfForm';
 import SmurfList from './SmurfList';
 import { SmurfContext } from '../contexts';
 
-const App = () => {
+import Typography from '@material-ui/core/Typography';
+import Appbar from '@material-ui/core/AppBar';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+	appBar: {
+		marginBottom: '4rem'
+	}
+});
+
+const App = props => {
 	const [smurfs, setSmurfs] = useState([]);
 
 	useEffect(() => {
@@ -21,10 +31,16 @@ const App = () => {
 			});
 	}, []);
 
+	const { classes } = props;
+
 	return (
 		<div>
 			<SmurfContext.Provider value={{ smurfs }}>
-				<h3>Welcome to Smurf Management</h3>
+				<Appbar position='static' className={classes.appBar}>
+					<Typography variant='h3' align='center'>
+						Welcome to Smurf Management
+					</Typography>
+				</Appbar>
 				<SmurfForm />
 				<SmurfList />
 			</SmurfContext.Provider>
@@ -32,4 +48,4 @@ const App = () => {
 	);
 };
 
-export default App;
+export default withStyles(styles)(App);

@@ -1,9 +1,26 @@
 import React, { useState, useContext } from 'react';
 import Axios from 'axios';
-
 import { SmurfContext } from '../contexts';
 
-const SmurfForm = () => {
+import Typography from '@material-ui/core/Typography';
+import FormGroup from '@material-ui/core/FormGroup';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+	inputs: {
+		width: '400px',
+		padding: '0',
+		margin: '2rem auto'
+	},
+	button: {
+		width: '200px',
+		margin: '0 auto'
+	}
+});
+
+const SmurfForm = props => {
 	// setting up state for inputs
 	const [nameInput, setNameInput] = useState('');
 	const [ageInput, setAgeInput] = useState('');
@@ -43,34 +60,48 @@ const SmurfForm = () => {
 		setHeightInput('');
 	};
 
+	const { classes } = props;
+
 	return (
 		<>
-			<h1>Add a Smurf to the Village</h1>
-			<form onSubmit={handleSubmit}>
-				<input
+			<Typography variant='h4' align='center' gutterBottom={true}>
+				Add a Smurf to the Village
+			</Typography>
+			<FormGroup onSubmit={handleSubmit}>
+				<Input
 					type='text'
 					value={nameInput}
 					onChange={handleName}
 					placeholder='name'
 					required
+					className={classes.inputs}
 				/>
-				<input
+				<Input
 					type='number'
 					value={ageInput}
 					onChange={handleAge}
 					placeholder='age'
 					required
+					className={classes.inputs}
 				/>
-				<input
+				<Input
 					type='text'
 					value={heightInput}
 					onChange={handleHeight}
 					placeholder='height'
 					required
+					className={classes.inputs}
 				/>
-				<button type='submit'>Submit</button>
-			</form>
+				<Button
+					color='primary'
+					size='medium'
+					className={classes.button}
+					type='submit'
+				>
+					Submit
+				</Button>
+			</FormGroup>
 		</>
 	);
 };
-export default SmurfForm;
+export default withStyles(styles)(SmurfForm);
