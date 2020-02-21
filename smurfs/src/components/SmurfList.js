@@ -9,13 +9,13 @@ const SmurfList = () => {
 		<>
 			{smurfs.map(item => (
 				<div key={item.id}>
-					<h1>{item.name}</h1>
-					<h3>
+					<h3>{item.name}</h3>
+					<h6>
 						Age: <span>{item.age}</span>
-					</h3>
-					<h3>
+					</h6>
+					<h6>
 						Height: <span>{item.height}</span>
-					</h3>
+					</h6>
 				</div>
 			))}
 		</>
