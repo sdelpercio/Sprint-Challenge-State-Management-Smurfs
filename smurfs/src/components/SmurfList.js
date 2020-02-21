@@ -1,10 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { SmurfContext } from '../contexts';
+import axios from 'axios';
 
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -22,6 +25,10 @@ const styles = theme => ({
 		background: 'rgb(143,205,255)',
 		background:
 			'linear-gradient(325deg, rgba(143,205,255,0.6029762246695554) 50%, rgba(0,0,0,0.6001751042213761) 100%)'
+	},
+	button: {
+		width: '50px',
+		margin: '1rem auto 0 auto'
 	}
 });
 
@@ -29,6 +36,13 @@ const SmurfList = props => {
 	const { smurfs } = useContext(SmurfContext);
 
 	const { classes } = props;
+
+	useEffect(() => {}, [smurfs]);
+
+	const removeSmurf = id => {
+		axios.delete(`http://localhost:3333/smurfs/${id}`);
+		console.log('after delete', smurfs);
+	};
 
 	return (
 		<Box className={classes.cardBox}>
@@ -42,6 +56,17 @@ const SmurfList = props => {
 						<Typography variant='body2'>
 							Height: <span>{item.height}</span>
 						</Typography>
+						<CardActions>
+							<Button
+								className={classes.button}
+								variant='outlined'
+								color='secondary'
+								onClick={() => removeSmurf(item.id)}
+								size='small'
+							>
+								Delete
+							</Button>
+						</CardActions>
 					</CardContent>
 				</Card>
 			))}

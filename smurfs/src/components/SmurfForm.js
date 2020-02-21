@@ -9,10 +9,17 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
-	inputs: {
+	form: {
 		width: '400px',
+		margin: '0 auto',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center'
+	},
+	inputs: {
+		width: '100%',
 		padding: '0',
-		margin: '2rem auto'
+		margin: '2rem 0'
 	},
 	button: {
 		width: '200px',
@@ -40,7 +47,11 @@ const SmurfForm = props => {
 	// finding length of smurfs array for id
 	const { smurfs } = useContext(SmurfContext);
 
-	const handleSubmit = () => {
+	const handleSubmit = e => {
+		e.preventDefault();
+
+		console.log('submit fired');
+
 		const newSmurf = {
 			name: nameInput,
 			age: Number(ageInput),
@@ -67,7 +78,7 @@ const SmurfForm = props => {
 			<Typography variant='h4' align='center' gutterBottom={true}>
 				Add a Smurf to the Village
 			</Typography>
-			<FormGroup onSubmit={handleSubmit}>
+			<form className={classes.form} onSubmit={handleSubmit}>
 				<Input
 					type='text'
 					value={nameInput}
@@ -100,7 +111,7 @@ const SmurfForm = props => {
 				>
 					Submit
 				</Button>
-			</FormGroup>
+			</form>
 		</>
 	);
 };

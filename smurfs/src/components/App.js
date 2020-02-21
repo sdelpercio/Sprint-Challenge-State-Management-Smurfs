@@ -29,7 +29,7 @@ const App = props => {
 			.catch(err => {
 				console.log('error', err);
 			});
-	}, []);
+	}, [smurfs]);
 
 	const { classes } = props;
 
